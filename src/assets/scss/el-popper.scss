@@ -1,0 +1,10 @@
+.el-popper.is-customized {
+  /* Set padding to ensure the height is 32px */
+  padding: 6px 12px;
+  background-color: #ffc700;
+}
+
+.el-popper.is-customized .el-popper__arrow::before {
+  background-color: #ffc700;
+  right: 0;
+}
