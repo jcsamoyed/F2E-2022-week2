@@ -1,0 +1,24 @@
+.el-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333;
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  .login-btn {
+    display: flex;
+    align-items: center;
+    span {
+      color: #fff;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+  }
+  .logo {
+    width: 84px;
+  }
+  .hamburger {
+    cursor: pointer;
+  }
+}
