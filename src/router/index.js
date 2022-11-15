@@ -9,15 +9,15 @@ const routes = [
     children: [
       {
         path: '/',
-        name: 'step1',
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+        name: 'Step1Page',
+        component: () => import(/* webpackChunkName: "Step1Page" */ '../views/Step1Page.vue'),
       },
     ],
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/Step1Page.vue'),
   },
 ];
 

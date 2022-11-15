@@ -1,0 +1,104 @@
+<template>
+  <section class="step1">
+    <div class="container">
+      <h1>建立合約</h1>
+      <p class="subtitle">請先上傳一份文件(PDF)</p>
+      <el-upload
+        v-loading="isUploading"
+        element-loading-text="Loading..."
+        class="upload-wrap"
+        drag
+        :limit="1"
+        :show-file-list="true"
+        :on-change="handleChangeUpload"
+        :before-upload="beforeUpload"
+        :http-request="afterUpload"
+      >
+        <div class="upload-container">
+          <el-button type="primary" size="large">上傳文件 PDF</el-button>
+          <p class="note">
+            *或拖曳檔案在此處。<br />
+            *檔案大小不得超過10MB。
+          </p>
+        </div>
+      </el-upload>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  name: 'TheStep1',
+  data() {
+    return {
+      isUploading: false,
+      imageUrl: '',
+      uploadList: [],
+    };
+  },
+  methods: {
+    handleChangeUpload(file) {
+      console.log(file);
+      this.isUploading = true;
+    },
+    beforeUpload(file) {
+      const isPDF = file.type === 'application/pdf';
+      const isLt10M = file.size / 1024 / 1024 < 10;
+
+      if (!isPDF) {
+        this.$message.error('檔案格式不符合');
+      }
+      if (!isLt10M) {
+        this.$message.error('檔案容量超過限制');
+      }
+      return isPDF && isLt10M;
+    },
+    afterUpload() {
+      console.log('afterUpload');
+      this.isUploading = false;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
+
+.step1 {
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 66.13px - 89px - 60px);
+  background-color: #fff;
+  margin: 30px 24px;
+}
+.container {
+  width: 90%;
+  max-width: 950px;
+  text-align: center;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 40px;
+  color: $dark;
+  margin-bottom: 24px;
+}
+.subtitle {
+  font-size: 20px;
+  color: $dark;
+  margin-bottom: 90px;
+}
+.upload-wrap {
+  width: 100%;
+}
+.upload-container {
+  width: 304px;
+  padding: 40px 0;
+  margin: 0 auto;
+}
+.note {
+  font-size: 14px;
+  line-height: 1.5;
+  color: $dark;
+  margin-top: 32px;
+}
+</style>
