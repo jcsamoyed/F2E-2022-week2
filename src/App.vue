@@ -54,6 +54,9 @@
               </div>
             </li>
           </ul>
+          <router-link :to="pageBtnUrl" class="page-wrap">
+            <el-button type="primary" plain>{{ pageBtnText }}</el-button>
+          </router-link>
         </el-aside>
       </el-container>
     </el-container>
@@ -70,6 +73,23 @@ export default {
     return {
       isSidebarOpen: false,
     };
+  },
+  computed: {
+    path() {
+      return this.$route.path;
+    },
+    pageBtnUrl() {
+      if (this.path === '/') {
+        return '/history';
+      }
+      return '/';
+    },
+    pageBtnText() {
+      if (this.path === '/') {
+        return '文件紀錄';
+      }
+      return '建立合約';
+    },
   },
 };
 </script>
