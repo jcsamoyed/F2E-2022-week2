@@ -32,30 +32,36 @@ export default {
   data() {
     return {
       isUploading: false,
-      imageUrl: '',
-      uploadList: [],
     };
   },
+  computed: {
+    currentStep() {
+      return this.$store.state.currentStep;
+    },
+  },
   methods: {
-    handleChangeUpload(file) {
-      console.log(file);
+    handleChangeUpload() {
       this.isUploading = true;
     },
     beforeUpload(file) {
       const isPDF = file.type === 'application/pdf';
       const isLt10M = file.size / 1024 / 1024 < 10;
-
       if (!isPDF) {
         this.$message.error('檔案格式不符合');
+        this.isUploading = false;
+        return false;
       }
       if (!isLt10M) {
         this.$message.error('檔案容量超過限制');
+        this.isUploading = false;
+        return false;
       }
+      this.$store.commit('SET_ORIGINAL_FILE', file);
       return isPDF && isLt10M;
     },
     afterUpload() {
-      console.log('afterUpload');
       this.isUploading = false;
+      this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
     },
   },
   created() {

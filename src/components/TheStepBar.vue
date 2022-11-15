@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <el-steps :active="0" align-center finish-status="success">
+    <el-steps :active="currentStep" align-center finish-status="success">
       <el-step title="上傳文件" />
       <el-step title="簽核文件" />
       <el-step title="下載檔案" />
@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'TheStepBar',
+  computed: {
+    currentStep() {
+      return this.$store.state.currentStep;
+    },
+  },
 };
 </script>
 
