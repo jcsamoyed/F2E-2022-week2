@@ -28,29 +28,17 @@
             <li>
               <span class="list-text">上傳圖片</span>
               <div class="btn-wrap">
-                <el-tooltip
-                  content="請升級pro會員後解鎖使用進階功能！"
-                  placement="left"
-                  effect="customized"
-                >
-                  <el-badge value="pro" class="item" type="warning">
-                    <el-button type="primary">新增</el-button>
-                  </el-badge>
-                </el-tooltip>
+                <el-badge value="pro" class="item" type="warning">
+                  <el-button type="primary">新增</el-button>
+                </el-badge>
               </div>
             </li>
             <li>
               <span class="list-text">新增日期</span>
               <div class="btn-wrap">
-                <el-tooltip
-                  content="請升級pro會員後解鎖使用進階功能！"
-                  placement="left"
-                  effect="customized"
-                >
-                  <el-badge value="pro" class="item" type="warning">
-                    <el-button type="primary">新增</el-button>
-                  </el-badge>
-                </el-tooltip>
+                <el-badge value="pro" class="item" type="warning">
+                  <el-button type="primary">新增</el-button>
+                </el-badge>
               </div>
             </li>
           </ul>
