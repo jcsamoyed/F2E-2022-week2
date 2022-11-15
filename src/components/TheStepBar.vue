@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <el-steps :active="1" align-center finish-status="success">
+    <el-steps :active="0" align-center finish-status="success">
       <el-step title="上傳文件" />
       <el-step title="簽核文件" />
       <el-step title="下載檔案" />
@@ -15,8 +15,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary: #aece43;
-$dark: #1c4f52;
+@import '@/assets/scss/variables';
 
 nav {
   background-color: $dark;
@@ -30,22 +29,22 @@ nav {
     font-size: 14px;
   }
   .el-step__icon-inner {
-    color: $primary;
+    color: $light;
   }
   .el-step__icon {
-    border-color: $primary;
+    border-color: $light;
     background-color: $dark;
   }
   .el-step__title {
-    color: $primary;
+    color: $light;
   }
   // 已完成
   .is-success {
     .el-step__line {
-      background-color: $primary;
+      background-color: $light;
     }
     .el-step__line-inner {
-      border-color: $primary;
+      border-color: $light;
     }
   }
   // 進行中
@@ -54,7 +53,7 @@ nav {
       font-weight: 700;
     }
     .el-step__icon {
-      background-color: $primary;
+      background-color: $light;
     }
     .el-step__icon-inner {
       color: $dark;
