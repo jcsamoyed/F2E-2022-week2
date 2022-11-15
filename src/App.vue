@@ -4,7 +4,6 @@
       <el-header height="auto">
         <router-link to="/" class="login-btn">
           <el-icon size="24" color="#fff"><UserFilled /></el-icon>
-          <span>會員登入</span>
         </router-link>
         <router-link to="/">
           <img src="@/assets/images/common/logo.svg" class="logo" alt="Master Sign logo" />

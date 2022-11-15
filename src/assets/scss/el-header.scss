@@ -9,11 +9,7 @@
   .login-btn {
     display: flex;
     align-items: center;
-    span {
-      color: #fff;
-      font-size: 14px;
-      margin-left: 10px;
-    }
+    cursor: not-allowed;
   }
   .logo {
     width: 84px;
