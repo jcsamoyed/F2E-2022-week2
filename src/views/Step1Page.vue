@@ -58,6 +58,9 @@ export default {
       this.isUploading = false;
     },
   },
+  created() {
+    this.$store.commit('SET_SIDEBAR_VALUE', false);
+  },
 };
 </script>
 

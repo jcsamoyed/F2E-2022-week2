@@ -15,6 +15,9 @@ export default {
       this.$router.push('/');
     },
   },
+  created() {
+    this.$store.commit('SET_SIDEBAR_VALUE', false);
+  },
 };
 </script>
 

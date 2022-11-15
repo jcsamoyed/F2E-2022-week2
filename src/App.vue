@@ -8,7 +8,7 @@
         <router-link to="/">
           <img src="@/assets/images/common/logo.svg" class="logo" alt="Master Sign logo" />
         </router-link>
-        <el-icon @click="isSidebarOpen = !isSidebarOpen" size="24" color="#fff" class="hamburger">
+        <el-icon @click="toggleHamburger" size="24" color="#fff" class="hamburger">
           <Fold v-if="!isSidebarOpen" />
           <Expand v-else />
         </el-icon>
@@ -57,12 +57,10 @@ import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
 
 <script>
 export default {
-  data() {
-    return {
-      isSidebarOpen: false,
-    };
-  },
   computed: {
+    isSidebarOpen() {
+      return this.$store.state.isSidebarOpen;
+    },
     path() {
       return this.$route.path;
     },
@@ -77,6 +75,11 @@ export default {
         return '文件紀錄';
       }
       return '建立合約';
+    },
+  },
+  methods: {
+    toggleHamburger() {
+      this.$store.commit('SET_SIDEBAR_VALUE', !this.isSidebarOpen);
     },
   },
 };
