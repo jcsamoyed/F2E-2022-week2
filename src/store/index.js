@@ -4,6 +4,7 @@ export default createStore({
   state: {
     isSidebarOpen: false,
     currentStep: 0,
+    isLoading: false,
     originalFile: {},
   },
   getters: {},
@@ -13,6 +14,9 @@ export default createStore({
     },
     SET_CURRENT_STEP(state, value) {
       state.currentStep = value;
+    },
+    SET_LOADING_VALUE(state, value) {
+      state.isLoading = value;
     },
     SET_ORIGINAL_FILE(state, file) {
       state.originalFile = file;

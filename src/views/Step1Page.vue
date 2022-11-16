@@ -4,7 +4,7 @@
       <h1>建立合約</h1>
       <p class="subtitle">請先上傳一份文件(PDF)</p>
       <el-upload
-        v-loading="isUploading"
+        v-loading="isLoading"
         element-loading-text="Loading..."
         class="upload-wrap"
         drag
@@ -29,19 +29,17 @@
 <script>
 export default {
   name: 'TheStep1',
-  data() {
-    return {
-      isUploading: false,
-    };
-  },
   computed: {
     currentStep() {
       return this.$store.state.currentStep;
     },
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
   },
   methods: {
     handleChangeUpload() {
-      this.isUploading = true;
+      this.$store.commit('SET_LOADING_VALUE', true);
     },
     beforeUpload(file) {
       const isPDF = file.type === 'application/pdf';
@@ -56,11 +54,20 @@ export default {
         this.isUploading = false;
         return false;
       }
-      this.$store.commit('SET_ORIGINAL_FILE', file);
+
+      // 產生fileReader物件
+      const fileReader = new FileReader();
+      // 將資料做處理
+      fileReader.readAsArrayBuffer(file);
+      // 綁入事件監聽
+      fileReader.addEventListener('load', () => {
+        // 獲取 readAsArrayBuffer 產生的結果，並用來渲染PDF
+        const originalFile = new Uint8Array(fileReader.result);
+        this.$store.commit('SET_ORIGINAL_FILE', originalFile);
+      });
       return isPDF && isLt10M;
     },
     afterUpload() {
-      this.isUploading = false;
       this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
     },
   },
