@@ -22,7 +22,9 @@
             <li>
               <span class="list-text">您的簽名</span>
               <div class="btn-wrap">
-                <el-button type="primary">新增</el-button>
+                <el-button @click="isShowDialogSign = !isShowDialogSign" type="primary"
+                  >新增</el-button
+                >
               </div>
             </li>
             <li>
@@ -49,6 +51,7 @@
       </el-container>
     </el-container>
   </div>
+  <DialogSign v-model="isShowDialogSign" @closeDialog="isShowDialogSign = false" />
 </template>
 
 <script setup>
@@ -56,7 +59,17 @@ import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
 </script>
 
 <script>
+import DialogSign from '@/components/dialog/DialogSign.vue';
+
 export default {
+  components: {
+    DialogSign,
+  },
+  data() {
+    return {
+      isShowDialogSign: true,
+    };
+  },
   computed: {
     isSidebarOpen() {
       return this.$store.state.isSidebarOpen;
