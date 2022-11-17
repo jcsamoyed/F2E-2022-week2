@@ -43,9 +43,19 @@ export default {
       isPainting: false,
     };
   },
+  props: {
+    isShowDialogSign: Boolean,
+  },
   computed: {
     signList() {
       return this.$store.state.signList;
+    },
+  },
+  watch: {
+    isShowDialogSign(newValue) {
+      if (newValue) {
+        this.initCanvas();
+      }
     },
   },
   methods: {
@@ -121,9 +131,6 @@ export default {
       this.$emit('closeDialog');
       this.reset();
     },
-  },
-  mounted() {
-    this.initCanvas();
   },
 };
 </script>

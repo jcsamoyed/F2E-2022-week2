@@ -61,7 +61,11 @@
       </el-container>
     </el-container>
   </div>
-  <DialogSign v-model="isShowDialogSign" @closeDialog="isShowDialogSign = false" />
+  <DialogSign
+    v-model="isShowDialogSign"
+    :isShowDialogSign="isShowDialogSign"
+    @closeDialog="isShowDialogSign = false"
+  />
 </template>
 
 <script setup>
@@ -79,7 +83,7 @@ export default {
   },
   data() {
     return {
-      isShowDialogSign: true,
+      isShowDialogSign: false,
     };
   },
   computed: {
