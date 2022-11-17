@@ -37,7 +37,7 @@ export default {
           // 抓取第一頁
           doc.getPage(1).then((page) => {
             // 設定 PDF 內容的顯示比例
-            const viewport = page.getViewport({ scale: 1 });
+            const viewport = page.getViewport({ scale: 1.5 });
             // 設定 canvas 的大小與 PDF 相等
             canvas.width = viewport.width;
             canvas.height = viewport.height;
@@ -64,10 +64,10 @@ export default {
 
 <style lang="scss" scoped>
 .step2 {
-  background-color: #fff;
   margin: 30px 24px;
 }
 canvas {
-  width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 </style>

@@ -68,6 +68,7 @@ export default {
       return isPDF && isLt10M;
     },
     afterUpload() {
+      this.$message.success('上傳成功');
       this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
     },
   },
