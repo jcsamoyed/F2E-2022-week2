@@ -103,6 +103,7 @@ export default {
     },
     // 取消
     handleCancel() {
+      this.reset();
       this.$emit('closeDialog');
     },
     // 建立簽名

@@ -20,27 +20,34 @@
         <el-aside width="300px" :class="{ open: isSidebarOpen }">
           <ul>
             <li>
-              <span class="list-text">您的簽名</span>
-              <div class="btn-wrap">
-                <el-button @click="isShowDialogSign = !isShowDialogSign" type="primary"
-                  >新增</el-button
-                >
+              <div class="flex-container">
+                <span class="list-text">您的簽名</span>
+                <div class="btn-wrap">
+                  <el-button @click="isShowDialogSign = !isShowDialogSign" type="primary"
+                    >新增</el-button
+                  >
+                </div>
+              </div>
+              <TheSignList />
+            </li>
+            <li>
+              <div class="flex-container">
+                <span class="list-text">上傳圖片</span>
+                <div class="btn-wrap">
+                  <el-badge value="pro" class="item" type="warning">
+                    <el-button type="primary">新增</el-button>
+                  </el-badge>
+                </div>
               </div>
             </li>
             <li>
-              <span class="list-text">上傳圖片</span>
-              <div class="btn-wrap">
-                <el-badge value="pro" class="item" type="warning">
-                  <el-button type="primary">新增</el-button>
-                </el-badge>
-              </div>
-            </li>
-            <li>
-              <span class="list-text">新增日期</span>
-              <div class="btn-wrap">
-                <el-badge value="pro" class="item" type="warning">
-                  <el-button type="primary">新增</el-button>
-                </el-badge>
+              <div class="flex-container">
+                <span class="list-text">新增日期</span>
+                <div class="btn-wrap">
+                  <el-badge value="pro" class="item" type="warning">
+                    <el-button type="primary">新增</el-button>
+                  </el-badge>
+                </div>
               </div>
             </li>
           </ul>
@@ -60,10 +67,12 @@ import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
 
 <script>
 import DialogSign from '@/components/dialog/DialogSign.vue';
+import TheSignList from '@/components/TheSignList.vue';
 
 export default {
   components: {
     DialogSign,
+    TheSignList,
   },
   data() {
     return {
