@@ -5,12 +5,13 @@
       <div class="canvas-container">
         <div class="option-bar">
           <div class="color-wrap">
-            <div
+            <button
               v-for="item in palette"
+              @click="setStrokeColor(item)"
               :key="item"
               class="color"
               :style="{ backgroundColor: item }"
-            ></div>
+            ></button>
           </div>
           <el-button @click="reset" type="primary" plain size="small">清除</el-button>
         </div>
@@ -46,6 +47,7 @@ export default {
       this.$nextTick(() => {
         this.canvas = this.$refs.canvas;
         this.ctx = this.canvas.getContext('2d');
+        this.ctx.imageSmoothingEnabled = false;
         // this.ctx.strokeRect(25, 25, 50, 50);
 
         // 設定線條的相關數值
@@ -93,6 +95,10 @@ export default {
     reset() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
+    // 畫筆顏色
+    setStrokeColor(color) {
+      this.ctx.strokeStyle = color;
+    },
     // 取消
     handleCancel() {
       this.$emit('closeDialog');
@@ -132,6 +138,7 @@ p {
 .color {
   width: 15px;
   height: 15px;
+  border: none;
   border-radius: 100%;
   cursor: pointer;
   transition-duration: 0.2s;
