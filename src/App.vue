@@ -23,8 +23,11 @@
               <div class="flex-container">
                 <span class="list-text">您的簽名</span>
                 <div class="btn-wrap">
-                  <el-button @click="isShowDialogSign = !isShowDialogSign" type="primary"
-                    >新增</el-button
+                  <el-button
+                    @click="isShowDialogSign = !isShowDialogSign"
+                    type="primary"
+                    :disabled="signList.length >= 2"
+                    >{{ createBtnText }}</el-button
                   >
                 </div>
               </div>
@@ -83,8 +86,17 @@ export default {
     isSidebarOpen() {
       return this.$store.state.isSidebarOpen;
     },
+    signList() {
+      return this.$store.state.signList;
+    },
     path() {
       return this.$route.path;
+    },
+    createBtnText() {
+      if (this.signList.length >= 2) {
+        return '簽名額度已滿';
+      }
+      return '新增';
     },
     pageBtnUrl() {
       if (this.path === '/') {
