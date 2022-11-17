@@ -2,7 +2,7 @@
   <el-dialog title="建立簽名檔" center>
     <div class="sign-block">
       <p>請在下列範圍內，手動輸入繪製簽名</p>
-      <div class="canvas-container">
+      <div ref="container" class="canvas-container">
         <div class="option-bar">
           <div class="color-wrap">
             <button
@@ -17,6 +17,7 @@
         </div>
         <canvas
           ref="canvas"
+          height="250"
           @mousedown="startPosition"
           @mouseup="finishedPosition"
           @mouseleave="finishedPosition"
@@ -48,7 +49,8 @@ export default {
         this.canvas = this.$refs.canvas;
         this.ctx = this.canvas.getContext('2d');
         this.ctx.imageSmoothingEnabled = false;
-        // this.ctx.strokeRect(25, 25, 50, 50);
+        const { container } = this.$refs;
+        this.canvas.width = container.clientWidth;
 
         // 設定線條的相關數值
         this.ctx.lineWidth = 1;
@@ -145,8 +147,5 @@ p {
   &:hover {
     opacity: 0.6;
   }
-}
-canvas {
-  width: 100%;
 }
 </style>
