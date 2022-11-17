@@ -5,6 +5,7 @@ export default createStore({
     isSidebarOpen: false,
     currentStep: 0,
     isLoading: false,
+    signList: [],
     originalFile: {},
   },
   getters: {},
@@ -17,6 +18,9 @@ export default createStore({
     },
     SET_LOADING_VALUE(state, value) {
       state.isLoading = value;
+    },
+    SET_SIGN_LIST(state, value) {
+      state.signList = value;
     },
     SET_ORIGINAL_FILE(state, file) {
       state.originalFile = file;

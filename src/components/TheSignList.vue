@@ -1,7 +1,9 @@
 <template>
   <ul>
-    <li>
-      <div class="sign-container"></div>
+    <li v-for="(item, index) in signList" :key="item.src">
+      <div class="sign-container">
+        <img :src="item.src" :alt="`簽名檔${index + 1}`" />
+      </div>
       <div class="icon-wrap">
         <img src="@/assets/images/icon/cursor.svg" alt="點擊示意 icon" />
         <el-dropdown>
@@ -20,6 +22,16 @@
 
 <script setup>
 import { MoreFilled } from '@element-plus/icons-vue';
+</script>
+
+<script>
+export default {
+  computed: {
+    signList() {
+      return this.$store.state.signList;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -56,6 +68,9 @@ li {
 }
 .sign-container {
   width: 100%;
+  img {
+    width: 100%;
+  }
 }
 .icon-wrap {
   display: flex;

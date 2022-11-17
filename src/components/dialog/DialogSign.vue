@@ -43,6 +43,11 @@ export default {
       isPainting: false,
     };
   },
+  computed: {
+    signList() {
+      return this.$store.state.signList;
+    },
+  },
   methods: {
     initCanvas() {
       this.$nextTick(() => {
@@ -108,7 +113,13 @@ export default {
     },
     // 建立簽名
     handleDone() {
+      // 將簽名存成 base64 png 格式
+      const newImg = this.canvas.toDataURL('image/png');
+      const signListCopy = [...this.signList];
+      signListCopy.push({ src: newImg });
+      this.$store.commit('SET_SIGN_LIST', signListCopy);
       this.$emit('closeDialog');
+      this.reset();
     },
   },
   mounted() {
