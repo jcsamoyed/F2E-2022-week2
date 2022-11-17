@@ -12,9 +12,16 @@
               :style="{ backgroundColor: item }"
             ></div>
           </div>
-          <el-button type="primary" plain size="small">清除</el-button>
+          <el-button @click="reset" type="primary" plain size="small">清除</el-button>
         </div>
-        <canvas ref="canvas"></canvas>
+        <canvas
+          ref="canvas"
+          @mousedown="startPosition"
+          @mouseup="finishedPosition"
+          @mouseleave="finishedPosition"
+          @focusout="finishedPosition"
+          @mousemove="draw"
+        ></canvas>
       </div>
     </div>
     <template #footer>
@@ -29,15 +36,74 @@ export default {
   data() {
     return {
       palette: ['#E30000', '#000000', '#2202EA', '#00BA13'],
+      canvas: null,
+      ctx: null,
+      isPainting: false,
     };
   },
   methods: {
+    initCanvas() {
+      this.$nextTick(() => {
+        this.canvas = this.$refs.canvas;
+        this.ctx = this.canvas.getContext('2d');
+        // this.ctx.strokeRect(25, 25, 50, 50);
+
+        // 設定線條的相關數值
+        this.ctx.lineWidth = 1;
+        this.ctx.lineCap = 'round';
+      });
+    },
+    // 取得滑鼠 / 手指在畫布上的位置
+    getPaintPosition(e) {
+      const canvasSize = this.canvas.getBoundingClientRect();
+      if (e.type === 'mousemove') {
+        return {
+          x: e.clientX - canvasSize.left,
+          y: e.clientY - canvasSize.top,
+        };
+      }
+      return {
+        x: e.touches[0].clientX - canvasSize.left,
+        y: e.touches[0].clientY - canvasSize.top,
+      };
+    },
+    // 開始繪圖時，將狀態開啟
+    startPosition(e) {
+      e.preventDefault();
+      this.isPainting = true;
+    },
+    // 結束繪圖時，將狀態關閉，並產生新路徑
+    finishedPosition() {
+      this.isPainting = false;
+      this.ctx.beginPath();
+    },
+    // 繪圖過程
+    draw(e) {
+      // 滑鼠移動過程中，若非繪圖狀態，則跳出
+      if (!this.isPainting) return;
+
+      // 取得滑鼠 / 手指在畫布上的 x, y 軸位置位置
+      const paintPosition = this.getPaintPosition(e);
+
+      // 移動滑鼠位置並產生圖案
+      this.ctx.lineTo(paintPosition.x, paintPosition.y);
+      this.ctx.stroke();
+    },
+    // 重新設定畫布
+    reset() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    // 取消
     handleCancel() {
       this.$emit('closeDialog');
     },
+    // 建立簽名
     handleDone() {
       this.$emit('closeDialog');
     },
+  },
+  mounted() {
+    this.initCanvas();
   },
 };
 </script>
