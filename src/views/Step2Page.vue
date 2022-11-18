@@ -29,30 +29,28 @@ export default {
         this.ctx = this.canvas.getContext('2d');
       });
     },
-    renderPdf() {
+    async renderPdf(data) {
       window.pdfjsLib.GlobalWorkerOptions.workerSrc = this.workerSrc;
-      window.pdfjsLib.getDocument(this.originalFile).promise.then((doc) => {
-        // 抓取第一頁
-        doc.getPage(1).then((page) => {
-          // 設定 PDF 內容的顯示比例
-          const viewport = page.getViewport({ scale: 1.5 });
-          // 設定 canvas 的大小與 PDF 相等
-          this.canvas.width = viewport.width;
-          this.canvas.height = viewport.height;
-          // 實際渲染 PDF
-          page.render({
-            canvasContext: this.ctx,
-            viewport,
-          });
-          this.$store.commit('SET_SIDEBAR_VALUE', true);
-          this.$store.commit('SET_LOADING_VALUE', false);
-        });
+      const pdfDoc = await window.pdfjsLib.getDocument(data).promise;
+      // 抓取第一頁
+      const pdfPage = await pdfDoc.getPage(1);
+      // 設定 PDF 內容的顯示比例
+      const viewport = pdfPage.getViewport({ scale: 1.5 });
+      // 設定 canvas 的大小與 PDF 相等
+      this.canvas.width = viewport.width;
+      this.canvas.height = viewport.height;
+      // 實際渲染 PDF
+      pdfPage.render({
+        canvasContext: this.ctx,
+        viewport,
       });
+      this.$store.commit('SET_SIDEBAR_VALUE', true);
+      this.$store.commit('SET_LOADING_VALUE', false);
     },
   },
   mounted() {
     this.initCanvas();
-    this.renderPdf();
+    this.renderPdf(this.originalFile);
   },
 };
 </script>
