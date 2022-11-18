@@ -70,7 +70,7 @@ export default {
       const pdfPage = await pdfDoc.getPage(1);
 
       // 設定尺寸及產生 canvas
-      const viewport = pdfPage.getViewport({ scale: window.devicePixelRatio });
+      const viewport = pdfPage.getViewport({ scale: 3 });
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
 
