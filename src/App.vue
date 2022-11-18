@@ -38,7 +38,7 @@
                 <span class="list-text">上傳圖片</span>
                 <div class="btn-wrap">
                   <el-badge value="pro" class="item" type="warning">
-                    <el-button type="primary">新增</el-button>
+                    <el-button @click="isShowDialogPro = true" type="primary">新增</el-button>
                   </el-badge>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                 <span class="list-text">新增日期</span>
                 <div class="btn-wrap">
                   <el-badge value="pro" class="item" type="warning">
-                    <el-button type="primary">新增</el-button>
+                    <el-button @click="isShowDialogPro = true" type="primary">新增</el-button>
                   </el-badge>
                 </div>
               </div>
@@ -66,6 +66,7 @@
     :isShowDialogSign="isShowDialogSign"
     @closeDialog="isShowDialogSign = false"
   />
+  <DialogPro v-model="isShowDialogPro" @closeDialog="isShowDialogPro = false" />
 </template>
 
 <script setup>
@@ -74,16 +75,19 @@ import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
 
 <script>
 import DialogSign from '@/components/dialog/DialogSign.vue';
+import DialogPro from '@/components/dialog/DialogPro.vue';
 import TheSignList from '@/components/TheSignList.vue';
 
 export default {
   components: {
     DialogSign,
+    DialogPro,
     TheSignList,
   },
   data() {
     return {
       isShowDialogSign: false,
+      isShowDialogPro: false,
     };
   },
   computed: {
