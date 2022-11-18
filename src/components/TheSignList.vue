@@ -1,7 +1,12 @@
 <template>
   <ul>
-    <li v-for="(item, index) in signList" :key="item.src">
-      <div class="sign-container">
+    <li
+      @click="addSign(item)"
+      @keydown.enter="addSign(item)"
+      v-for="(item, index) in signList"
+      :key="item.src"
+    >
+      <div @click="addSign" @keydown="addSign" class="sign-container">
         <img :src="item.src" :alt="`簽名檔${index + 1}`" />
       </div>
       <div class="icon-wrap">
@@ -29,6 +34,11 @@ export default {
   computed: {
     signList() {
       return this.$store.state.signList;
+    },
+  },
+  methods: {
+    addSign(sign) {
+      this.eventBus.emit('click-add-sign', sign);
     },
   },
 };

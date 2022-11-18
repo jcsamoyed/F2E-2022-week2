@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       canvas: null,
+      canvasNew: null,
       ctx: null,
       workerSrc: 'https://mozilla.github.io/pdf.js/build/pdf.worker.js',
       Base64Prefix: 'data:application/pdf;base64,',
@@ -100,6 +101,7 @@ export default {
     async setPdfToBackground(file) {
       // 此處 canvas 套用 fabric.js
       const canvas = new window.fabric.Canvas(this.$refs.canvas);
+      this.canvasNew = canvas;
 
       canvas.requestRenderAll();
       const pdfData = await this.printPDF(file);
@@ -114,10 +116,29 @@ export default {
       this.$store.commit('SET_SIDEBAR_VALUE', true);
       this.$store.commit('SET_LOADING_VALUE', false);
     },
+    addSign(sign) {
+      window.fabric.Image.fromURL(sign.src, (image) => {
+        image.set({
+          // 設定簽名出現的位置及大小，後續可調整
+          hasControls: true,
+          top: 200,
+          left: 100,
+          scaleX: 0.5,
+          scaleY: 0.5,
+        });
+        this.canvasNew.add(image);
+      });
+    },
   },
   mounted() {
     this.initCanvas();
     this.setPdfToBackground(this.originalFile);
+    this.eventBus.on('click-add-sign', (sign) => {
+      this.addSign(sign);
+    });
+  },
+  beforeUnmount() {
+    this.eventBus.off('click-add-sign');
   },
 };
 </script>
