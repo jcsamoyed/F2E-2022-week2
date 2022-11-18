@@ -23,12 +23,6 @@ export default {
     },
   },
   methods: {
-    importPdfJs() {
-      const s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = 'https://mozilla.github.io/pdf.js/build/pdf.js';
-      document.body.appendChild(s);
-    },
     initCanvas() {
       this.$nextTick(() => {
         this.canvas = this.$refs.canvas;
@@ -36,30 +30,25 @@ export default {
       });
     },
     renderPdf() {
-      setTimeout(() => {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = this.workerSrc;
-        window.pdfjsLib.getDocument(this.originalFile).promise.then((doc) => {
-          // 抓取第一頁
-          doc.getPage(1).then((page) => {
-            // 設定 PDF 內容的顯示比例
-            const viewport = page.getViewport({ scale: 1.5 });
-            // 設定 canvas 的大小與 PDF 相等
-            this.canvas.width = viewport.width;
-            this.canvas.height = viewport.height;
-            // 實際渲染 PDF
-            page.render({
-              canvasContext: this.ctx,
-              viewport,
-            });
-            this.$store.commit('SET_SIDEBAR_VALUE', true);
-            this.$store.commit('SET_LOADING_VALUE', false);
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = this.workerSrc;
+      window.pdfjsLib.getDocument(this.originalFile).promise.then((doc) => {
+        // 抓取第一頁
+        doc.getPage(1).then((page) => {
+          // 設定 PDF 內容的顯示比例
+          const viewport = page.getViewport({ scale: 1.5 });
+          // 設定 canvas 的大小與 PDF 相等
+          this.canvas.width = viewport.width;
+          this.canvas.height = viewport.height;
+          // 實際渲染 PDF
+          page.render({
+            canvasContext: this.ctx,
+            viewport,
           });
+          this.$store.commit('SET_SIDEBAR_VALUE', true);
+          this.$store.commit('SET_LOADING_VALUE', false);
         });
-      }, 1000);
+      });
     },
-  },
-  created() {
-    this.importPdfJs();
   },
   mounted() {
     this.initCanvas();

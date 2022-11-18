@@ -64,12 +64,12 @@ export default {
         // 獲取 readAsArrayBuffer 產生的結果，並用來渲染PDF
         const originalFile = new Uint8Array(fileReader.result);
         this.$store.commit('SET_ORIGINAL_FILE', originalFile);
+        this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
       });
       return isPDF && isLt10M;
     },
     afterUpload() {
       this.$message.success('上傳成功');
-      this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
     },
   },
   created() {
