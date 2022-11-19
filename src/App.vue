@@ -8,10 +8,16 @@
         <router-link to="/">
           <img src="@/assets/images/common/logo.svg" class="logo" alt="Master Sign logo" />
         </router-link>
-        <el-icon @click="toggleHamburger" size="24" color="#fff" class="hamburger">
-          <Fold v-if="!isSidebarOpen" />
-          <Expand v-else />
-        </el-icon>
+        <div class="download-and-hamburger">
+          <div v-if="currentStep" class="download-wrap">
+            <el-button @click="isShowDialogCancel = true" type="primary" plain>取消</el-button>
+            <el-button type="primary">下載</el-button>
+          </div>
+          <el-icon @click="toggleHamburger" size="24" color="#fff" class="hamburger">
+            <Fold v-if="!isSidebarOpen" />
+            <Expand v-else />
+          </el-icon>
+        </div>
       </el-header>
       <el-container>
         <el-main>
@@ -67,6 +73,7 @@
     @closeDialog="isShowDialogSign = false"
   />
   <DialogPro v-model="isShowDialogPro" @closeDialog="isShowDialogPro = false" />
+  <DialogCancel v-model="isShowDialogCancel" @closeDialog="isShowDialogCancel = false" />
 </template>
 
 <script setup>
@@ -74,29 +81,28 @@ import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
 </script>
 
 <script>
+import { mapState } from 'vuex';
 import DialogSign from '@/components/dialog/DialogSign.vue';
 import DialogPro from '@/components/dialog/DialogPro.vue';
+import DialogCancel from '@/components/dialog/DialogCancel.vue';
 import TheSignList from '@/components/TheSignList.vue';
 
 export default {
   components: {
     DialogSign,
     DialogPro,
+    DialogCancel,
     TheSignList,
   },
   data() {
     return {
       isShowDialogSign: false,
       isShowDialogPro: false,
+      isShowDialogCancel: false,
     };
   },
   computed: {
-    isSidebarOpen() {
-      return this.$store.state.isSidebarOpen;
-    },
-    signList() {
-      return this.$store.state.signList;
-    },
+    ...mapState(['isSidebarOpen', 'currentStep', 'signList']),
     path() {
       return this.$route.path;
     },
@@ -122,6 +128,9 @@ export default {
   methods: {
     toggleHamburger() {
       this.$store.commit('SET_SIDEBAR_VALUE', !this.isSidebarOpen);
+    },
+    handleCancel() {
+      this.isShowDialogCancel = true;
     },
   },
 };

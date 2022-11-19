@@ -17,6 +17,13 @@
   .logo {
     width: 84px;
   }
+  .download-and-hamburger {
+    display: flex;
+    align-items: center;
+  }
+  .download-wrap {
+    margin-right: 50px;
+  }
   .hamburger {
     cursor: pointer;
   }
