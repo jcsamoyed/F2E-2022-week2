@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="提示訊息">
+  <el-dialog title="提示訊息" center>
     <p>請升級pro會員後解鎖使用進階功能！</p>
     <template #footer>
       <span class="dialog-footer">
@@ -18,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+p {
+  text-align: center;
+}
+</style>
