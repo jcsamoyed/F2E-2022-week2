@@ -5,6 +5,7 @@
   <DialogDownload
     v-model="isShowDialogDownload"
     :originFileName="originFileName"
+    :fileType="fileType"
     @closeDialog="isShowDialogDownload = false"
   />
 </template>
@@ -27,6 +28,7 @@ export default {
       Base64Prefix: 'data:application/pdf;base64,',
       isShowDialogDownload: false,
       originFileName: null,
+      fileType: 'pdf',
     };
   },
   computed: {
@@ -151,11 +153,17 @@ export default {
       // 將檔案取名並下載
       pdf.save(this.fileName);
     },
+    splitFileName() {
+      // eslint-disable-next-line
+      this.fileType = this.originalFile.type.split('/')[1];
+      const fileNameOnly = this.fileName.split(`.${this.fileType}`)[0];
+      if (!this.originFileName) {
+        this.originFileName = fileNameOnly;
+      }
+    },
   },
   created() {
-    if (!this.originFileName) {
-      this.originFileName = this.fileName;
-    }
+    this.splitFileName();
   },
   mounted() {
     this.initCanvas();

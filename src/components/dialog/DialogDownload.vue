@@ -5,7 +5,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleCancel">取消</el-button>
-        <el-button type="primary" @click="handleConfirm">確定</el-button>
+        <el-button type="primary" @click="handleConfirm" :disabled="!fileNameEdit">確定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -15,11 +15,12 @@
 export default {
   data() {
     return {
-      fileNameEdit: `${this.originFileName}`,
+      fileNameEdit: `${this.originFileName}_sign.${this.fileType}`,
     };
   },
   props: {
     originFileName: String,
+    fileType: String,
   },
   methods: {
     handleCancel() {
