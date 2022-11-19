@@ -11,7 +11,7 @@
         <div class="download-and-hamburger">
           <div v-if="currentStep" class="download-wrap">
             <el-button @click="isShowDialogCancel = true" type="primary" plain>取消</el-button>
-            <el-button type="primary">下載</el-button>
+            <el-button @click="handleDownload" type="primary">下載</el-button>
           </div>
           <el-icon @click="toggleHamburger" size="24" color="#fff" class="hamburger">
             <Fold v-if="!isSidebarOpen" />
@@ -131,6 +131,9 @@ export default {
     },
     handleCancel() {
       this.isShowDialogCancel = true;
+    },
+    handleDownload() {
+      this.eventBus.emit('click-download');
     },
   },
 };

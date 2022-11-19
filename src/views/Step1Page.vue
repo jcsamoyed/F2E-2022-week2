@@ -55,6 +55,7 @@ export default {
         return false;
       }
       this.$store.commit('SET_ORIGINAL_FILE', file);
+      this.$store.commit('SET_FILE_NAME', file.name);
       this.$store.commit('SET_CURRENT_STEP', this.currentStep + 1);
       return isPDF && isLt10M;
     },

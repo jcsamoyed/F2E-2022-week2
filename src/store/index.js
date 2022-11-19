@@ -7,6 +7,7 @@ export default createStore({
     isLoading: false,
     signList: [],
     originalFile: {},
+    fileName: null,
   },
   getters: {},
   mutations: {
@@ -24,6 +25,9 @@ export default createStore({
     },
     SET_ORIGINAL_FILE(state, file) {
       state.originalFile = file;
+    },
+    SET_FILE_NAME(state, fileName) {
+      state.fileName = fileName;
     },
   },
   actions: {},

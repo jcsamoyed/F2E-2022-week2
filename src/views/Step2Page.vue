@@ -2,11 +2,22 @@
   <section class="step2" v-loading="isLoading">
     <canvas ref="canvas"></canvas>
   </section>
+  <DialogDownload
+    v-model="isShowDialogDownload"
+    :originFileName="originFileName"
+    @closeDialog="isShowDialogDownload = false"
+  />
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import DialogDownload from '@/components/dialog/DialogDownload.vue';
+
 export default {
   name: 'TheStep2',
+  components: {
+    DialogDownload,
+  },
   data() {
     return {
       canvas: null,
@@ -14,15 +25,12 @@ export default {
       ctx: null,
       workerSrc: 'https://mozilla.github.io/pdf.js/build/pdf.worker.js',
       Base64Prefix: 'data:application/pdf;base64,',
+      isShowDialogDownload: false,
+      originFileName: null,
     };
   },
   computed: {
-    isLoading() {
-      return this.$store.state.isLoading;
-    },
-    originalFile() {
-      return this.$store.state.originalFile;
-    },
+    ...mapState(['isLoading', 'originalFile', 'fileName']),
   },
   methods: {
     initCanvas() {
@@ -129,6 +137,25 @@ export default {
         this.canvasNew.add(image);
       });
     },
+    openDownloadDialog() {
+      this.isShowDialogDownload = true;
+    },
+    handleDownload() {
+      // eslint-disable-next-line
+      const pdf = new jsPDF();
+      // 將 canvas 存為圖片
+      const image = this.canvasNew.toDataURL('image/png');
+      // 設定背景在 PDF 中的位置及大小
+      const { width, height } = pdf.internal.pageSize;
+      pdf.addImage(image, 'png', 0, 0, width, height);
+      // 將檔案取名並下載
+      pdf.save(this.fileName);
+    },
+  },
+  created() {
+    if (!this.originFileName) {
+      this.originFileName = this.fileName;
+    }
   },
   mounted() {
     this.initCanvas();
@@ -136,9 +163,17 @@ export default {
     this.eventBus.on('click-add-sign', (sign) => {
       this.addSign(sign);
     });
+    this.eventBus.on('click-download', () => {
+      this.openDownloadDialog();
+    });
+    this.eventBus.on('confirm-file-name', () => {
+      this.handleDownload();
+    });
   },
   beforeUnmount() {
     this.eventBus.off('click-add-sign');
+    this.eventBus.off('click-download');
+    this.eventBus.off('confirm-file-name');
   },
 };
 </script>
