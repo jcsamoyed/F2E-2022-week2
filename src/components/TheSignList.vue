@@ -34,11 +34,14 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['signList']),
+    ...mapState(['isMobileDevice', 'signList']),
   },
   methods: {
     addSign(sign) {
       this.eventBus.emit('click-add-sign', sign);
+      if (this.isMobileDevice) {
+        this.$store.commit('SET_SIDEBAR_VALUE', false);
+      }
     },
     deleteSign(sign) {
       const list = this.signList.filter((item) => item.src !== sign.src);
