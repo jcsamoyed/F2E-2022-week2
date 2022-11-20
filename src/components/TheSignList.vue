@@ -39,6 +39,7 @@ export default {
   methods: {
     addSign(sign) {
       this.eventBus.emit('click-add-sign', sign);
+      this.$message.success('已將簽名檔添加至文件');
       if (this.isMobileDevice) {
         this.$store.commit('SET_SIDEBAR_VALUE', false);
       }
@@ -46,6 +47,7 @@ export default {
     deleteSign(sign) {
       const list = this.signList.filter((item) => item.src !== sign.src);
       this.$store.commit('SET_SIGN_LIST', list);
+      this.$message.success('已刪除簽名檔');
     },
   },
 };

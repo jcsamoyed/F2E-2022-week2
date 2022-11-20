@@ -132,6 +132,7 @@ export default {
       const signListCopy = [...this.signList];
       signListCopy.push({ src: newImg });
       this.$store.commit('SET_SIGN_LIST', signListCopy);
+      this.$message.success('建立簽名檔成功');
       this.$emit('closeDialog');
       this.reset();
     },
