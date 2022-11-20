@@ -8,6 +8,7 @@
         element-loading-text="Loading..."
         class="upload-wrap"
         drag
+        accept=".pdf"
         :limit="1"
         :show-file-list="true"
         :on-change="handleChangeUpload"
