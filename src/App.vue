@@ -7,6 +7,7 @@
         </router-link>
         <router-link to="/">
           <img src="@/assets/images/common/logo.svg" class="logo" alt="Master Sign logo" />
+          <span class="title">{{ $route.meta.title }}</span>
         </router-link>
         <div class="download-and-hamburger">
           <div v-if="currentStep" class="download-wrap">

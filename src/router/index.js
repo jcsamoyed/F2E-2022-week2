@@ -11,6 +11,7 @@ const routes = [
         path: '/',
         name: 'Step1Page',
         component: () => import(/* webpackChunkName: "Step1Page" */ '../views/Step1Page.vue'),
+        meta: { title: '建立合約' },
       },
     ],
   },
@@ -18,6 +19,7 @@ const routes = [
     path: '/history',
     name: 'History',
     component: () => import(/* webpackChunkName: "HistoryPage" */ '../views/HistoryPage.vue'),
+    meta: { title: '文件紀錄' },
   },
 ];
 

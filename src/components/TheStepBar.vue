@@ -78,4 +78,10 @@ nav {
     }
   }
 }
+
+@media screen and (max-width: 640px) {
+  nav {
+    padding: 6px;
+  }
+}
 </style>

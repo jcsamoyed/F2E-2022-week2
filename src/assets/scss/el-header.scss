@@ -17,6 +17,12 @@
   .logo {
     width: 84px;
   }
+  .title {
+    display: none;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+  }
   .download-and-hamburger {
     display: flex;
     align-items: center;
@@ -26,5 +32,19 @@
   }
   .hamburger {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .el-header {
+    .logo {
+      display: none;
+    }
+    .title {
+      display: block;
+    }
+    .download-wrap {
+      display: none;
+    }
   }
 }

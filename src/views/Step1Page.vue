@@ -109,4 +109,27 @@ h1 {
   color: $dark;
   margin-top: 32px;
 }
+
+@media screen and (max-width: 640px) {
+  .step1 {
+    height: calc(100vh - 48px - 69px);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+    align-items: flex-start;
+  }
+  .container {
+    width: 100%;
+  }
+  h1 {
+    display: none;
+  }
+  .subtitle {
+    display: none;
+  }
+  .upload-container {
+    width: 80%;
+    max-width: 248px;
+  }
+}
 </style>

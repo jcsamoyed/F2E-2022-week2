@@ -41,3 +41,17 @@
     }
   }
 }
+
+@media screen and (max-width: 640px) {
+  .el-aside {
+    position: absolute;
+    right: 0px;
+    top: 48px;
+    height: calc(100vh - 48px);
+    background-color: #fff;
+    z-index: 10;
+    &.open {
+      width: 100%;
+    }
+  }
+}
