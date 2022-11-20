@@ -1,22 +1,22 @@
 <template>
   <ul>
-    <li
-      @click="addSign(item)"
-      @keydown.enter="addSign(item)"
-      v-for="(item, index) in signList"
-      :key="item.src"
-    >
-      <div @click="addSign" @keydown="addSign" class="sign-container">
+    <li v-for="(item, index) in signList" :key="item.src">
+      <div class="sign-container" @click="addSign(item)" @keydown.enter="addSign(item)">
         <img :src="item.src" :alt="`簽名檔${index + 1}`" />
       </div>
       <div class="icon-wrap">
-        <img src="@/assets/images/icon/cursor.svg" alt="點擊示意 icon" />
+        <img
+          @click="addSign(item)"
+          @keydown.enter="addSign(item)"
+          src="@/assets/images/icon/cursor.svg"
+          alt="點擊示意 icon"
+        />
         <el-dropdown>
           <el-icon><MoreFilled /></el-icon>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>刪除簽名</el-dropdown-item>
-              <el-dropdown-item>重新簽名</el-dropdown-item>
+              <el-dropdown-item @click.stop="deleteSign(item)">刪除簽名</el-dropdown-item>
+              <el-dropdown-item disabled>重新簽名</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -30,15 +30,19 @@ import { MoreFilled } from '@element-plus/icons-vue';
 </script>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   computed: {
-    signList() {
-      return this.$store.state.signList;
-    },
+    ...mapState(['signList']),
   },
   methods: {
     addSign(sign) {
       this.eventBus.emit('click-add-sign', sign);
+    },
+    deleteSign(sign) {
+      const list = this.signList.filter((item) => item.src !== sign.src);
+      this.$store.commit('SET_SIGN_LIST', list);
     },
   },
 };
@@ -56,6 +60,7 @@ li {
   border-left: solid 14px $primary;
   padding: 8px;
   margin-top: 16px;
+  z-index: 0;
   cursor: pointer;
   &::before {
     content: '';
@@ -78,6 +83,7 @@ li {
 }
 .sign-container {
   width: 100%;
+  z-index: 2;
   img {
     width: 100%;
   }
@@ -88,6 +94,9 @@ li {
   row-gap: 24px;
   justify-content: space-between;
   align-items: flex-end;
+  img {
+    z-index: 2;
+  }
 }
 .el-icon {
   transform: rotate(90deg);
