@@ -8,16 +8,19 @@
     :fileType="fileType"
     @closeDialog="isShowDialogDownload = false"
   />
+  <DialogFinish v-model="isShowDialogFinish" @closeDialog="isShowDialogFinish = false" />
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import DialogDownload from '@/components/dialog/DialogDownload.vue';
+import DialogFinish from '@/components/dialog/DialogFinish.vue';
 
 export default {
   name: 'TheStep2',
   components: {
     DialogDownload,
+    DialogFinish,
   },
   data() {
     return {
@@ -27,6 +30,7 @@ export default {
       workerSrc: 'https://mozilla.github.io/pdf.js/build/pdf.worker.js',
       Base64Prefix: 'data:application/pdf;base64,',
       isShowDialogDownload: false,
+      isShowDialogFinish: false,
       originFileName: null,
       fileType: 'pdf',
     };
@@ -152,6 +156,7 @@ export default {
       pdf.addImage(image, 'png', 0, 0, width, height);
       // 將檔案取名並下載
       pdf.save(this.fileName);
+      this.isShowDialogFinish = true;
     },
     splitFileName() {
       // eslint-disable-next-line
