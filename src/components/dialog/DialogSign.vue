@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="建立簽名檔" center>
+  <el-dialog class="sign-dialog" title="建立簽名檔" center>
     <div class="sign-block">
       <p>請在下列範圍內，手動輸入繪製簽名</p>
       <div ref="container" class="canvas-container">

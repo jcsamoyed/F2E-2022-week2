@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="請確認檔案名稱" center>
+  <el-dialog class="custom-dialog" title="請確認檔案名稱" center>
     <p>確認完成後，檔案將進行下載後輸出PDF</p>
     <el-input v-model="fileNameEdit" placeholder="請輸入檔案名稱" clearable />
     <template #footer>

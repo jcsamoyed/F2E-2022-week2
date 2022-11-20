@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="簽核完成" center>
+  <el-dialog class="custom-dialog" title="簽核完成" center>
     <img src="@/assets/images/common/file.svg" alt="簽核完成" />
     <p>您可以留在本頁繼續編輯此份文件，<br />或建立新合約</p>
     <template #footer>

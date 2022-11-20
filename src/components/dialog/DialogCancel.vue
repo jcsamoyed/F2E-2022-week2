@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="提示訊息" center>
+  <el-dialog class="custom-dialog" title="提示訊息" center>
     <p>確定放棄編輯文件？確定後文件將無法再次編輯。</p>
     <template #footer>
       <span class="dialog-footer">
@@ -28,5 +28,6 @@ export default {
 <style lang="scss" scoped>
 p {
   text-align: center;
+  line-height: 1.5;
 }
 </style>

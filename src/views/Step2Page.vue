@@ -194,9 +194,16 @@ export default {
 <style lang="scss" scoped>
 .step2 {
   margin: 30px 24px;
+  min-height: calc(100vh - 48px - 69px - 32px);
 }
 canvas {
   display: block;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  .step2 {
+    margin: 16px;
+  }
 }
 </style>
