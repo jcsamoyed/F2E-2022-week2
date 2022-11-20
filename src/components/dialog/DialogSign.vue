@@ -23,6 +23,10 @@
           @mouseleave="finishedPosition"
           @focusout="finishedPosition"
           @mousemove="draw"
+          @touchstart="startPosition"
+          @touchend="finishedPosition"
+          @touchcancel="finishedPosition"
+          @touchmove="draw"
         ></canvas>
       </div>
     </div>
