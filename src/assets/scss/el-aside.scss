@@ -44,7 +44,7 @@
 
 @media screen and (max-width: 640px) {
   .el-aside {
-    position: absolute;
+    position: fixed;
     right: 0px;
     top: 48px;
     height: calc(100vh - 48px);

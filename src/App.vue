@@ -67,6 +67,9 @@
         </el-aside>
       </el-container>
     </el-container>
+    <el-icon v-if="currentStep" @click="handleDownload" color="#fff" size="54" class="icon-download"
+      ><Download
+    /></el-icon>
   </div>
   <DialogSign
     v-model="isShowDialogSign"
@@ -78,7 +81,8 @@
 </template>
 
 <script setup>
-import { UserFilled, Expand, Fold } from '@element-plus/icons-vue';
+// eslint-disable-next-line
+import { UserFilled, Expand, Fold, Download } from '@element-plus/icons-vue';
 </script>
 
 <script>
@@ -142,9 +146,27 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700&display=swap');
+@import '@/assets/scss/variables';
 
 #app {
   font-family: 'Noto Sans TC', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+.icon-download {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 22px;
+  background-color: $primary;
+  padding: 12px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 640px) {
+  .icon-download {
+    display: inline-flex;
+  }
 }
 </style>
