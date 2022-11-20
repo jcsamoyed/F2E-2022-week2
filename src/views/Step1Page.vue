@@ -46,12 +46,12 @@ export default {
       const isLt10M = file.size / 1024 / 1024 < 10;
       if (!isPDF) {
         this.$message.error('檔案格式不符合');
-        this.isUploading = false;
+        this.$store.commit('SET_LOADING_VALUE', false);
         return false;
       }
       if (!isLt10M) {
         this.$message.error('檔案容量超過限制');
-        this.isUploading = false;
+        this.$store.commit('SET_LOADING_VALUE', false);
         return false;
       }
       this.$store.commit('SET_ORIGINAL_FILE', file);
