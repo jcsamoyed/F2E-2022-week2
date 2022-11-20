@@ -141,6 +141,9 @@ export default {
       this.eventBus.emit('click-download');
     },
   },
+  created() {
+    this.$store.dispatch('checkIsMobileDevice');
+  },
 };
 </script>
 

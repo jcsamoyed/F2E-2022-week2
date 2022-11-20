@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isLoading', 'originalFile', 'fileName']),
+    ...mapState(['isMobileDevice', 'isLoading', 'originalFile', 'fileName']),
   },
   methods: {
     initCanvas() {
@@ -127,7 +127,11 @@ export default {
 
       // 將 PDF 畫面設定為背景
       canvas.setBackgroundImage(pdfImage, canvas.renderAll.bind(canvas));
-      this.$store.commit('SET_SIDEBAR_VALUE', true);
+      if (this.isMobileDevice) {
+        this.$store.commit('SET_SIDEBAR_VALUE', false);
+      } else {
+        this.$store.commit('SET_SIDEBAR_VALUE', true);
+      }
       this.$store.commit('SET_LOADING_VALUE', false);
     },
     addSign(sign) {

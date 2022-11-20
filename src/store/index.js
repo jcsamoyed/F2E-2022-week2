@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
+    isMobileDevice: false,
     isSidebarOpen: false,
     currentStep: 0,
     isLoading: false,
@@ -11,6 +12,9 @@ export default createStore({
   },
   getters: {},
   mutations: {
+    SET_MOBILE_DEVICE_VALUE(state, value) {
+      state.isMobileDevice = value;
+    },
     SET_SIDEBAR_VALUE(state, value) {
       state.isSidebarOpen = value;
     },
@@ -30,6 +34,20 @@ export default createStore({
       state.fileName = fileName;
     },
   },
-  actions: {},
+  actions: {
+    checkIsMobileDevice({ commit }) {
+      const mobileDevice = [
+        'Android',
+        'webOS',
+        'iPhone',
+        'iPad',
+        'iPod',
+        'BlackBerry',
+        'Windows Phone',
+      ];
+      const isMobileDevice = mobileDevice.some((e) => navigator.userAgent.match(e));
+      commit('SET_MOBILE_DEVICE_VALUE', isMobileDevice);
+    },
+  },
   modules: {},
 });
